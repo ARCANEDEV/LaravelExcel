@@ -14,7 +14,14 @@ class DefaultParser implements ParserContract
      |  Main Functions
      | ------------------------------------------------------------------------------------------------
      */
-    public function transform($row)
+    /**
+     * Transform the parsed data.
+     *
+     * @param  array  $row
+     *
+     * @return mixed
+     */
+    public function transform(array $row)
     {
         return $row;
     }

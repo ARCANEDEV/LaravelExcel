@@ -1,6 +1,6 @@
 <?php namespace Arcanedev\LaravelExcel;
 
-use Arcanedev\Support\ServiceProvider;
+use Arcanedev\Support\PackageServiceProvider;
 
 /**
  * Class     LaravelExcelServiceProvider
@@ -8,8 +8,40 @@ use Arcanedev\Support\ServiceProvider;
  * @package  Arcanedev\LaravelExcel
  * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
  */
-class LaravelExcelServiceProvider extends ServiceProvider
+class LaravelExcelServiceProvider extends PackageServiceProvider
 {
+    /* ------------------------------------------------------------------------------------------------
+     |  Properties
+     | ------------------------------------------------------------------------------------------------
+     */
+    /**
+     * Package name.
+     *
+     * @var string
+     */
+    protected $package = 'laravel-excel';
+
+    /**
+     * Indicates if loading of the provider is deferred.
+     *
+     * @var bool
+     */
+    protected $defer = true;
+
+    /* ------------------------------------------------------------------------------------------------
+     |  Getters & Setters
+     | ------------------------------------------------------------------------------------------------
+     */
+    /**
+     * Get the base path of the package.
+     *
+     * @return string
+     */
+    public function getBasePath()
+    {
+        return dirname(__DIR__);
+    }
+
     /* ------------------------------------------------------------------------------------------------
      |  Main Functions
      | ------------------------------------------------------------------------------------------------
@@ -19,6 +51,7 @@ class LaravelExcelServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->registerConfig();
         $this->registerExporter();
         $this->registerImporter();
     }
@@ -31,9 +64,27 @@ class LaravelExcelServiceProvider extends ServiceProvider
         //
     }
 
+    /**
+     * Get the services provided by the provider.
+     *
+     * @return array
+     */
+    public function provides()
+    {
+        return [
+            'arcanedev.excel.exporter',
+            Contracts\ExporterManager::class,
+            'arcanedev.excel.importer',
+            Contracts\ImporterManager::class,
+        ];
+    }
+
     /* ------------------------------------------------------------------------------------------------
      |  Other Functions
      | ------------------------------------------------------------------------------------------------
+     */
+    /**
+     * Register the exporter manager.
      */
     private function registerExporter()
     {
@@ -43,6 +94,9 @@ class LaravelExcelServiceProvider extends ServiceProvider
         $this->bind(Contracts\ExporterManager::class, 'arcanedev.excel.exporter');
     }
 
+    /**
+     * Register the importer manager.
+     */
     private function registerImporter()
     {
         $this->singleton('arcanedev.excel.importer', function ($app) {

@@ -3,12 +3,12 @@
 use Box\Spout\Common\Type;
 
 /**
- * Class     Csv
+ * Class     CsvImporter
  *
  * @package  Arcanedev\LaravelExcel\Importer
  * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
  */
-class Csv extends AbstractImporter
+class CsvImporter extends AbstractImporter
 {
     /* ------------------------------------------------------------------------------------------------
      |  Properties

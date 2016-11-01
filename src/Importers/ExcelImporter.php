@@ -3,12 +3,12 @@
 use Box\Spout\Common\Type;
 
 /**
- * Class     Excel
+ * Class     ExcelImporter
  *
- * @package  Arcanedev\LaravelExcel\Importer
+ * @package  Arcanedev\LaravelExcel\Importers
  * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
  */
-class Excel extends AbstractImporter
+class ExcelImporter extends AbstractImporter
 {
     /* ------------------------------------------------------------------------------------------------
      |  Properties
