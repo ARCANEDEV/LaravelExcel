@@ -1,0 +1,34 @@
+{
+    "name":        "arcanedev/laravel-excel",
+    "description": "This package allows you to export a array/Laravel Collection as an excel/csv file or import it.",
+    "keywords":    ["arcanedev", "laravel", "excel", "csv", "ods", "collection", "eloquent", "export", "import"],
+    "license":     "MIT",
+    "type":        "library",
+    "authors":     [
+        {
+            "name":     "ARCANEDEV",
+            "email":    "arcanedev.maroc@gmail.com",
+            "homepage": "https://github.com/arcanedev-maroc",
+            "role":     "Developer"
+        }
+    ],
+    "require": {
+        "php":               ">=5.6",
+        "box/spout":         "~2.4",
+        "arcanedev/support": "~3.0"
+    },
+    "require-dev": {
+        "phpunit/phpcov":    "~2.0|~3.0",
+        "phpunit/phpunit":   "~4.0|~5.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Arcanedev\\LaravelExcel\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Arcanedev\\LaravelExcel\\Tests\\": "tests/"
+        }
+    }
+}
