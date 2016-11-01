@@ -1,18 +1,18 @@
-<?php namespace Arcanedev\LaravelExcel\Exporters;
+<?php namespace Arcanedev\LaravelExcel\Importers;
 
 use Box\Spout\Common\Type;
 
 /**
- * Class     Excel
+ * Class     OpenOfficeImporter
  *
- * @package  Arcanedev\LaravelExcel\Exporter
+ * @package  Arcanedev\LaravelExcel\Importers
  * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
  */
-class Excel extends AbstractExporter
+class OpenOfficeImporter extends AbstractImporter
 {
     /* ------------------------------------------------------------------------------------------------
      |  Properties
      | ------------------------------------------------------------------------------------------------
      */
-    protected $type = Type::XLSX;
+    protected $type = Type::ODS;
 }

@@ -3,16 +3,16 @@
 use Box\Spout\Common\Type;
 
 /**
- * Class     Csv
+ * Class     ExcelExporter
  *
  * @package  Arcanedev\LaravelExcel\Exporter
  * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
  */
-class Csv extends AbstractExporter
+class ExcelExporter extends AbstractExporter
 {
     /* ------------------------------------------------------------------------------------------------
      |  Properties
      | ------------------------------------------------------------------------------------------------
      */
-    protected $type = Type::CSV;
+    protected $type = Type::XLSX;
 }

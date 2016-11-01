@@ -22,7 +22,7 @@ class ExporterFactory extends Manager implements ExporterManager
      */
     public function getDefaultDriver()
     {
-        return 'excel';
+        return $this->app['config']['laravel-excel.default'];
     }
 
     /* ------------------------------------------------------------------------------------------------
@@ -48,7 +48,7 @@ class ExporterFactory extends Manager implements ExporterManager
      */
     public function createExcelDriver()
     {
-        return new Exporters\Excel;
+        return new Exporters\ExcelExporter;
     }
 
     /**
@@ -58,7 +58,7 @@ class ExporterFactory extends Manager implements ExporterManager
      */
     public function createCsvDriver()
     {
-        return new Exporters\Csv;
+        return new Exporters\CsvExporter;
     }
 
     /**
@@ -68,6 +68,6 @@ class ExporterFactory extends Manager implements ExporterManager
      */
     public function createOpenOfficeDriver()
     {
-        return new Exporters\OpenOffice;
+        return new Exporters\OpenOfficeExporter;
     }
 }

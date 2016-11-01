@@ -12,5 +12,12 @@ interface Parser
      |  Main Functions
      | ------------------------------------------------------------------------------------------------
      */
-    public function transform($array);
+    /**
+     * Transform the parsed data.
+     *
+     * @param  array  $row
+     *
+     * @return mixed
+     */
+    public function transform(array $row);
 }

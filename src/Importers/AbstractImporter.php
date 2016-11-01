@@ -1,9 +1,9 @@
 <?php namespace Arcanedev\LaravelExcel\Importers;
 
-use Illuminate\Database\Eloquent\Collection;
-use Box\Spout\Reader\ReaderFactory;
-use Arcanedev\LaravelExcel\Contracts\Parser as ParserContract;
 use Arcanedev\LaravelExcel\Contracts\Importer as ImporterContract;
+use Arcanedev\LaravelExcel\Contracts\Parser as ParserContract;
+use Box\Spout\Reader\ReaderFactory;
+use Illuminate\Support\Collection;
 
 /**
  * Class     AbstractExporter
@@ -18,16 +18,16 @@ abstract class AbstractImporter implements ImporterContract
      | ------------------------------------------------------------------------------------------------
      */
     /** @var  string */
-    protected $path;
+    protected $type;
 
     /** @var  string */
-    protected $type;
+    protected $path = '';
+
+    /** @var  int */
+    protected $sheet = 0;
 
     /** @var  \Arcanedev\LaravelExcel\Contracts\Parser */
     protected $parser;
-
-    /** @var  int */
-    protected $sheet;
 
     /* ------------------------------------------------------------------------------------------------
      |  Constructor
@@ -38,8 +38,6 @@ abstract class AbstractImporter implements ImporterContract
      */
     public function __construct()
     {
-        $this->setPath('');
-        $this->setSheet(0);
         $this->setParser(new DefaultParser);
     }
 

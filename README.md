@@ -32,6 +32,7 @@ This package allows you to export a array/Laravel Collection as an excel/csv fil
 
 ## TODOS
 
+  - [ ] More tests.
   - [ ] Documentation.
 
 ## Contribution

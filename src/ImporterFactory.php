@@ -22,7 +22,7 @@ class ImporterFactory extends Manager implements ImporterManager
      */
     public function getDefaultDriver()
     {
-        return 'excel';
+        return $this->app['config']['laravel-excel.default'];
     }
 
     /* ------------------------------------------------------------------------------------------------
@@ -44,30 +44,30 @@ class ImporterFactory extends Manager implements ImporterManager
     /**
      * Get the Excel driver instance.
      *
-     * @return \Arcanedev\LaravelExcel\Importers\Excel
+     * @return \Arcanedev\LaravelExcel\Importers\ExcelImporter
      */
     public function createExcelDriver()
     {
-        return new Importers\Excel;
+        return new Importers\ExcelImporter;
     }
 
     /**
      * Get the CSV driver instance.
      *
-     * @return \Arcanedev\LaravelExcel\Importers\Csv
+     * @return \Arcanedev\LaravelExcel\Importers\CsvImporter
      */
     public function createCsvDriver()
     {
-        return new Importers\Csv;
+        return new Importers\CsvImporter;
     }
 
     /**
      * Get the Open office driver instance.
      *
-     * @return \Arcanedev\LaravelExcel\Importers\OpenOffice
+     * @return \Arcanedev\LaravelExcel\Importers\OpenOfficeImporter
      */
     public function createOpenOfficeDriver()
     {
-        return new Importers\OpenOffice;
+        return new Importers\OpenOfficeImporter;
     }
 }
