@@ -53,7 +53,7 @@ If you discover any security related issues, please email arcanedev.maroc@gmail.
 [badge_build]:        https://img.shields.io/travis/ARCANEDEV/LaravelExcel.svg?style=flat-square
 [badge_coverage]:     https://img.shields.io/scrutinizer/coverage/g/ARCANEDEV/LaravelExcel.svg?style=flat-square
 [badge_quality]:      https://img.shields.io/scrutinizer/g/ARCANEDEV/LaravelExcel.svg?style=flat-square
-[badge_insight]:      https://img.shields.io/sensiolabs/i/[id].svg?style=flat-square
+[badge_insight]:      https://img.shields.io/sensiolabs/i/6e9ca73e-5b70-4d6f-b3ab-60b0df761b45.svg?style=flat-square
 [badge_issues]:       https://img.shields.io/github/issues/ARCANEDEV/LaravelExcel.svg?style=flat-square
 [badge_package]:      https://img.shields.io/badge/package-arcanedev/laravel--excel-blue.svg?style=flat-square
 [badge_release]:      https://img.shields.io/packagist/v/arcanedev/laravel-excel.svg?style=flat-square
@@ -66,4 +66,4 @@ If you discover any security related issues, please email arcanedev.maroc@gmail.
 [link-packagist]:     https://packagist.org/packages/arcanedev/laravel-excel
 [link-travis]:        https://travis-ci.org/ARCANEDEV/LaravelExcel
 [link-scrutinizer]:   https://scrutinizer-ci.com/g/ARCANEDEV/LaravelExcel/?branch=master
-[link-insight]:       https://insight.sensiolabs.com/projects/[id]
+[link-insight]:       https://insight.sensiolabs.com/projects/6e9ca73e-5b70-4d6f-b3ab-60b0df761b45
