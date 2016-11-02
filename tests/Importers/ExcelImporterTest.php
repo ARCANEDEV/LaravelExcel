@@ -4,6 +4,12 @@ use Arcanedev\LaravelExcel\Importers\ExcelImporter;
 use Arcanedev\LaravelExcel\Tests\TestCase;
 use Box\Spout\Common\Type;
 
+/**
+ * Class     ExcelImporterTest
+ *
+ * @package  Arcanedev\LaravelExcel\Tests\Importers
+ * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
+ */
 class ExcelImporterTest extends TestCase
 {
     /* ------------------------------------------------------------------------------------------------
