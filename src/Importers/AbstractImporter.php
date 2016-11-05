@@ -29,16 +29,25 @@ abstract class AbstractImporter implements ImporterContract
     /** @var  \Arcanedev\LaravelExcel\Contracts\Parser */
     protected $parser;
 
+    /** @var \Box\Spout\Reader\ReaderInterface */
+    protected $reader;
+
+    /** @var array */
+    protected $options = [];
+
     /* ------------------------------------------------------------------------------------------------
      |  Constructor
      | ------------------------------------------------------------------------------------------------
      */
     /**
      * AbstractImporter constructor.
+     *
+     * @param  array  $options
      */
-    public function __construct()
+    public function __construct(array $options = [])
     {
         $this->setParser(new DefaultParser);
+        $this->setOptions($options);
     }
 
     /* ------------------------------------------------------------------------------------------------
@@ -97,6 +106,20 @@ abstract class AbstractImporter implements ImporterContract
         return $this->type;
     }
 
+    /**
+     * Set the reader options.
+     *
+     * @param  array  $options
+     *
+     * @return self
+     */
+    public function setOptions(array $options)
+    {
+        $this->options = $options;
+
+        return $this;
+    }
+
     /* ------------------------------------------------------------------------------------------------
      |  Main Functions
      | ------------------------------------------------------------------------------------------------
@@ -120,10 +143,10 @@ abstract class AbstractImporter implements ImporterContract
      */
     public function get()
     {
-        $reader = $this->create();
-        $reader->open($this->path);
-        $collection = $this->parseRows($reader);
-        $reader->close();
+        $this->create();
+        $this->reader->open($this->path);
+        $collection = $this->parseRows();
+        $this->reader->close();
 
         return $collection;
     }
@@ -134,26 +157,28 @@ abstract class AbstractImporter implements ImporterContract
      */
     /**
      * Create the reader instance.
-     *
-     * @return \Box\Spout\Reader\ReaderInterface
      */
     protected function create()
     {
-        return ReaderFactory::create($this->type);
+        $this->reader = ReaderFactory::create($this->type);
+        $this->loadOptions();
     }
+
+    /**
+     * Load the reader options.
+     */
+    abstract protected function loadOptions();
 
     /**
      * Parse the rows.
      *
-     * @param  \Box\Spout\Reader\ReaderInterface  $reader
-     *
      * @return \Illuminate\Support\Collection
      */
-    protected function parseRows($reader)
+    protected function parseRows()
     {
         $collection = Collection::make();
 
-        foreach ($reader->getSheetIterator() as $index => $sheet) {
+        foreach ($this->reader->getSheetIterator() as $index => $sheet) {
             if ($index !== $this->sheet) continue;
 
             foreach ($sheet->getRowIterator() as $row) {

@@ -26,16 +26,25 @@ abstract class AbstractExporter implements ExporterContract
     /** @var \Arcanedev\LaravelExcel\Contracts\Serializer */
     protected $serializer;
 
+    /** @var \Box\Spout\Writer\WriterInterface */
+    protected $writer;
+
+    /** @var array */
+    protected $options = [];
+
     /* ------------------------------------------------------------------------------------------------
      |  Constructor
      | ------------------------------------------------------------------------------------------------
      */
     /**
      * AbstractExporter constructor.
+     *
+     * @param  array  $options
      */
-    public function __construct()
+    public function __construct(array $options = [])
     {
         $this->setSerializer(new DefaultSerializer);
+        $this->setOptions($options);
     }
 
     /* ------------------------------------------------------------------------------------------------
@@ -66,6 +75,20 @@ abstract class AbstractExporter implements ExporterContract
         return $this->type;
     }
 
+    /**
+     * Set the writer options.
+     *
+     * @param  array  $options
+     *
+     * @return self
+     */
+    public function setOptions(array $options)
+    {
+        $this->options = $options;
+
+        return $this;
+    }
+
     /* ------------------------------------------------------------------------------------------------
      |  Main Functions
      | ------------------------------------------------------------------------------------------------
@@ -91,10 +114,10 @@ abstract class AbstractExporter implements ExporterContract
      */
     public function save($filename)
     {
-        $writer = $this->create();
-        $writer->openToFile($filename);
-        $this->makeRows($writer);
-        $writer->close();
+        $this->create();
+        $this->writer->openToFile($filename);
+        $this->makeRows();
+        $this->close();
     }
 
     /**
@@ -104,30 +127,48 @@ abstract class AbstractExporter implements ExporterContract
      */
     public function stream($filename)
     {
-        $writer = $this->create();
-        $writer->openToBrowser($filename);
-        $this->makeRows($writer);
-        $writer->close();
+        $this->create();
+        $this->writer->openToBrowser($filename);
+        $this->makeRows();
+        $this->close();
     }
 
+    /* ------------------------------------------------------------------------------------------------
+     |  Other Functions
+     | ------------------------------------------------------------------------------------------------
+     */
     /**
-     * @return \Box\Spout\Writer\WriterInterface
+     * Create the writer.
      */
     protected function create()
     {
-        return WriterFactory::create($this->type);
+        $this->writer = WriterFactory::create($this->type);
+        $this->loadOptions();
     }
 
     /**
-     * @param  \Box\Spout\Writer\WriterInterface  $writer
+     * Load the writer options.
      */
-    protected function makeRows(&$writer)
+    abstract protected function loadOptions();
+
+    /**
+     * Close the writer.
+     */
+    protected function close()
+    {
+        $this->writer->close();
+    }
+
+    /**
+     * Make rows.
+     */
+    protected function makeRows()
     {
         if ( ! empty($headerRow = $this->serializer->getHeader()))
-            $writer->addRow($headerRow);
+            $this->writer->addRow($headerRow);
 
         foreach ($this->data as $record) {
-            $writer->addRow(
+            $this->writer->addRow(
                 $this->serializer->getData($record)
             );
         }

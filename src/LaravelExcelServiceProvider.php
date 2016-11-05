@@ -89,7 +89,7 @@ class LaravelExcelServiceProvider extends PackageServiceProvider
     private function registerExporter()
     {
         $this->singleton('arcanedev.excel.exporter', function ($app) {
-            return new ExporterFactory($app);
+            return new ExporterManager($app);
         });
         $this->bind(Contracts\ExporterManager::class, 'arcanedev.excel.exporter');
     }
@@ -100,7 +100,7 @@ class LaravelExcelServiceProvider extends PackageServiceProvider
     private function registerImporter()
     {
         $this->singleton('arcanedev.excel.importer', function ($app) {
-            return new ImporterFactory($app);
+            return new ImporterManager($app);
         });
         $this->bind(Contracts\ImporterManager::class, 'arcanedev.excel.importer');
     }
