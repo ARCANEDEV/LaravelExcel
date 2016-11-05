@@ -14,5 +14,21 @@ class ExcelImporter extends AbstractImporter
      |  Properties
      | ------------------------------------------------------------------------------------------------
      */
+    /** @var  string */
     protected $type = Type::XLSX;
+
+    /** @var \Box\Spout\Reader\XLSX\Reader */
+    protected $reader;
+
+    /* ------------------------------------------------------------------------------------------------
+     |  Other Functions
+     | ------------------------------------------------------------------------------------------------
+     */
+    /**
+     * Load the reader options.
+     */
+    protected function loadOptions()
+    {
+        //
+    }
 }

@@ -30,6 +30,15 @@ interface Exporter
      */
     public function getType();
 
+    /**
+     * Set the writer options.
+     *
+     * @param  array  $options
+     *
+     * @return self
+     */
+    public function setOptions(array $options);
+
     /* ------------------------------------------------------------------------------------------------
      |  Main Functions
      | ------------------------------------------------------------------------------------------------

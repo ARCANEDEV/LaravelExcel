@@ -13,15 +13,23 @@ return [
      */
     'drivers' => [
         'excel' => [
+            'options' => [
 
+            ],
         ],
 
         'csv'   => [
-
+            'options' => [
+                'field-delimiter' => ',',
+                'field-enclosure' => '"',
+                'add-bom'         => true,
+            ],
         ],
 
         'ods'   => [
+            'options' => [
 
+            ],
         ],
     ],
 ];

@@ -14,5 +14,21 @@ class OpenOfficeImporter extends AbstractImporter
      |  Properties
      | ------------------------------------------------------------------------------------------------
      */
+    /** @var  string */
     protected $type = Type::ODS;
+
+    /** @var \Box\Spout\Reader\ODS\Reader */
+    protected $reader;
+
+    /* ------------------------------------------------------------------------------------------------
+     |  Other Functions
+     | ------------------------------------------------------------------------------------------------
+     */
+    /**
+     * Load the reader options.
+     */
+    protected function loadOptions()
+    {
+        //
+    }
 }

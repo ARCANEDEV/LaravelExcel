@@ -1,15 +1,15 @@
 <?php namespace Arcanedev\LaravelExcel;
 
-use Arcanedev\LaravelExcel\Contracts\ImporterManager;
+use Arcanedev\LaravelExcel\Contracts\ExporterManager as ExporterManagerContract;
 use Arcanedev\Support\Manager;
 
 /**
- * Class     ImporterFactory
+ * Class     ExporterManager
  *
  * @package  Arcanedev\LaravelExcel
  * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
  */
-class ImporterFactory extends Manager implements ImporterManager
+class ExporterManager extends Manager implements ExporterManagerContract
 {
     /* ------------------------------------------------------------------------------------------------
      |  Getters & Setters
@@ -30,11 +30,11 @@ class ImporterFactory extends Manager implements ImporterManager
      | ------------------------------------------------------------------------------------------------
      */
     /**
-     * Get a importer instance.
+     * Get a exporter instance.
      *
      * @param  string  $driver
      *
-     * @return \Arcanedev\LaravelExcel\Contracts\Importer
+     * @return \Arcanedev\LaravelExcel\Contracts\Exporter
      */
     public function make($driver)
     {
@@ -44,30 +44,52 @@ class ImporterFactory extends Manager implements ImporterManager
     /**
      * Get the Excel driver instance.
      *
-     * @return \Arcanedev\LaravelExcel\Importers\ExcelImporter
+     * @return \Arcanedev\LaravelExcel\Contracts\Exporter
      */
     public function createExcelDriver()
     {
-        return new Importers\ExcelImporter;
+        return new Exporters\ExcelExporter(
+            $this->getDriverOptions('excel')
+        );
     }
 
     /**
      * Get the CSV driver instance.
      *
-     * @return \Arcanedev\LaravelExcel\Importers\CsvImporter
+     * @return \Arcanedev\LaravelExcel\Contracts\Exporter
      */
     public function createCsvDriver()
     {
-        return new Importers\CsvImporter;
+        return new Exporters\CsvExporter(
+            $this->getDriverOptions('csv')
+        );
     }
 
     /**
      * Get the Open office driver instance.
      *
-     * @return \Arcanedev\LaravelExcel\Importers\OpenOfficeImporter
+     * @return \Arcanedev\LaravelExcel\Contracts\Exporter
      */
     public function createOpenOfficeDriver()
     {
-        return new Importers\OpenOfficeImporter;
+        return new Exporters\OpenOfficeExporter(
+            $this->getDriverOptions('ods')
+        );
+    }
+
+    /* ------------------------------------------------------------------------------------------------
+     |  Other Functions
+     | ------------------------------------------------------------------------------------------------
+     */
+    /**
+     * Get the driver options.
+     *
+     * @param  string  $driver
+     *
+     * @return array
+     */
+    protected function getDriverOptions($driver)
+    {
+        return $this->app['config']->get("laravel-excel.drivers.$driver.options", []);
     }
 }
