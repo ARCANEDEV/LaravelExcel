@@ -96,7 +96,7 @@ abstract class AbstractExporter implements ExporterContract
     /**
      * Load the data.
      *
-     * @param  Collection  $data
+     * @param  \Illuminate\Support\Collection  $data
      *
      * @return self
      */
