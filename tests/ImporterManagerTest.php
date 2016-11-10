@@ -1,5 +1,7 @@
 <?php namespace Arcanedev\LaravelExcel\Tests;
 
+use Arcanedev\LaravelExcel\Importers;
+
 /**
  * Class     ImporterManagerTest
  *
@@ -56,7 +58,7 @@ class ImporterManagerTest extends TestCase
     {
         $importer = $this->manager->make('excel');
 
-        $this->assertInstanceOf(\Arcanedev\LaravelExcel\Importers\ExcelImporter::class, $importer);
+        $this->assertInstanceOf(Importers\ExcelImporter::class, $importer);
         $this->assertSame('xlsx', $importer->getType());
     }
 
@@ -65,7 +67,7 @@ class ImporterManagerTest extends TestCase
     {
         $importer = $this->manager->make('csv');
 
-        $this->assertInstanceOf(\Arcanedev\LaravelExcel\Importers\CsvImporter::class, $importer);
+        $this->assertInstanceOf(Importers\CsvImporter::class, $importer);
         $this->assertSame('csv', $importer->getType());
     }
 
@@ -74,7 +76,16 @@ class ImporterManagerTest extends TestCase
     {
         $importer = $this->manager->make('open-office');
 
-        $this->assertInstanceOf(\Arcanedev\LaravelExcel\Importers\OpenOfficeImporter::class, $importer);
+        $this->assertInstanceOf(Importers\OpenOfficeImporter::class, $importer);
         $this->assertSame('ods', $importer->getType());
+    }
+
+    /** @test */
+    public function it_can_make_default_exporter()
+    {
+        $importer = $this->manager->make(null);
+
+        $this->assertInstanceOf(Importers\ExcelImporter::class, $importer);
+        $this->assertSame('xlsx', $importer->getType());
     }
 }

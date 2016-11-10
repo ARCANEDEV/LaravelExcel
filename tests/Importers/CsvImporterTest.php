@@ -61,8 +61,7 @@ class CsvImporterTest extends TestCase
     public function it_can_load_file()
     {
         $this->importer
-            ->load($this->getFixture('csv/standard.csv'))
-            ->setSheet(1);
+            ->load($this->getFixture('csv/standard.csv'));
 
         $data = $this->importer->get();
 
