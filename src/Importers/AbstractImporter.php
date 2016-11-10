@@ -137,15 +137,33 @@ abstract class AbstractImporter implements ImporterContract
     }
 
     /**
-     * Get the parsed data.
+     * Get the parsed data for a single sheet.
+     *
+     * @param  int  $sheet
      *
      * @return \Illuminate\Support\Collection
      */
-    public function get()
+    public function get($sheet = 1)
     {
+        $this->setSheet($sheet);
         $this->create();
         $this->reader->open($this->path);
         $collection = $this->parseRows();
+        $this->reader->close();
+
+        return $collection;
+    }
+
+    /**
+     * Get the parsed data for all sheets.
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function all()
+    {
+        $this->create();
+        $this->reader->open($this->path);
+        $collection = $this->parseAllRows();
         $this->reader->close();
 
         return $collection;
@@ -170,24 +188,44 @@ abstract class AbstractImporter implements ImporterContract
     abstract protected function loadOptions();
 
     /**
-     * Parse the rows.
+     * Parse the rows of selected sheet.
      *
      * @return \Illuminate\Support\Collection
      */
     protected function parseRows()
     {
-        $collection = Collection::make();
+        $rows = Collection::make();
 
         foreach ($this->reader->getSheetIterator() as $index => $sheet) {
             if ($index !== $this->sheet) continue;
 
             foreach ($sheet->getRowIterator() as $row) {
-                $collection->push(
-                    $this->parser->transform($row)
-                );
+                $rows->push($this->parser->transform($row));
             }
         }
 
-        return $collection;
+        return $rows;
+    }
+
+    /**
+     * Parse all the rows.
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    protected function parseAllRows()
+    {
+        $sheets = Collection::make();
+
+        foreach ($this->reader->getSheetIterator() as $index => $sheet) {
+            $rows = Collection::make();
+
+            foreach ($sheet->getRowIterator() as $row) {
+                $rows->push($this->parser->transform($row));
+            }
+
+            $sheets->put($index, $rows);
+        }
+
+        return $sheets;
     }
 }

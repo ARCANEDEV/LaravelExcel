@@ -36,6 +36,15 @@ class CsvImporter extends AbstractImporter
             )
             ->setFieldEnclosure(
                 Arr::get($this->options, 'field-enclosure', '"')
+            )
+            ->setEndOfLineCharacter(
+                Arr::get($this->options, 'eol-character', "\n")
+            )
+            ->setEncoding(
+                Arr::get($this->options, 'encoding', 'UTF-8')
+            )
+            ->setShouldPreserveEmptyRows(
+                Arr::get($this->options, 'preserve-empty-rows', false)
             );
     }
 }

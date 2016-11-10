@@ -1,23 +1,23 @@
-<?php namespace Arcanedev\LaravelExcel\Tests\Importers;
+<?php namespace Arcanedev\LaravelExcel\Tests\Exporters;
 
-use Arcanedev\LaravelExcel\Importers\CsvImporter;
+use Arcanedev\LaravelExcel\Exporters\OpenOfficeExporter;
 use Arcanedev\LaravelExcel\Tests\TestCase;
 use Box\Spout\Common\Type;
 
 /**
- * Class     CsvImporterTest
+ * Class     OpenOfficeExporterTest
  *
- * @package  Arcanedev\LaravelExcel\Tests\Importers
+ * @package  Arcanedev\LaravelExcel\Tests\Exporters
  * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
  */
-class CsvImporterTest extends TestCase
+class OpenOfficeExporterTest extends TestCase
 {
     /* ------------------------------------------------------------------------------------------------
      |  Properties
      | ------------------------------------------------------------------------------------------------
      */
-    /** @var  \Arcanedev\LaravelExcel\Importers\CsvImporter */
-    protected $importer;
+    /** @var  \Arcanedev\LaravelExcel\Exporters\OpenOfficeExporter */
+    protected $exporter;
 
     /* ------------------------------------------------------------------------------------------------
      |  Main Functions
@@ -27,12 +27,12 @@ class CsvImporterTest extends TestCase
     {
         parent::setUp();
 
-        $this->importer = new CsvImporter;
+        $this->exporter = new OpenOfficeExporter;
     }
 
     public function tearDown()
     {
-        unset($this->importer);
+        unset($this->exporter);
 
         parent::tearDown();
     }
@@ -45,31 +45,15 @@ class CsvImporterTest extends TestCase
     public function it_can_be_instantiated()
     {
         $expectations = [
-            \Arcanedev\LaravelExcel\Contracts\Importer::class,
-            \Arcanedev\LaravelExcel\Importers\AbstractImporter::class,
-            CsvImporter::class,
+            \Arcanedev\LaravelExcel\Contracts\Exporter::class,
+            \Arcanedev\LaravelExcel\Exporters\AbstractExporter::class,
+            OpenOfficeExporter::class,
         ];
 
         foreach ($expectations as $expected) {
-            $this->assertInstanceOf($expected, $this->importer);
+            $this->assertInstanceOf($expected, $this->exporter);
         }
 
-        $this->assertSame(Type::CSV, $this->importer->getType());
-    }
-
-    /** @test */
-    public function it_can_load_file()
-    {
-        $this->importer
-            ->load($this->getFixture('csv/standard.csv'));
-
-        $data = $this->importer->get();
-
-        $this->assertInstanceOf(\Illuminate\Support\Collection::class, $data);
-        $this->assertSame([
-            ['csv--11', 'csv--12', 'csv--13'],
-            ['csv--21', 'csv--22', 'csv--23'],
-            ['csv--31', 'csv--32', 'csv--33'],
-        ], $data->toArray());
+        $this->assertSame(Type::ODS, $this->exporter->getType());
     }
 }

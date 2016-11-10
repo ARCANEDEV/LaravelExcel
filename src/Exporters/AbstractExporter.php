@@ -96,7 +96,7 @@ abstract class AbstractExporter implements ExporterContract
     /**
      * Load the data.
      *
-     * @param  Collection  $data
+     * @param  \Illuminate\Support\Collection  $data
      *
      * @return self
      */
@@ -116,19 +116,6 @@ abstract class AbstractExporter implements ExporterContract
     {
         $this->create();
         $this->writer->openToFile($filename);
-        $this->makeRows();
-        $this->close();
-    }
-
-    /**
-     * Output data directly to the browser.
-     *
-     * @param  string  $filename
-     */
-    public function stream($filename)
-    {
-        $this->create();
-        $this->writer->openToBrowser($filename);
         $this->makeRows();
         $this->close();
     }

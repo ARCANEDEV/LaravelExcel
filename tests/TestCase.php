@@ -67,6 +67,16 @@ abstract class TestCase extends BaseTestCase
      */
     protected function getFixture($filename)
     {
-        return realpath(__DIR__."/fixtures/$filename");
+        return realpath(__DIR__."/_fixtures/$filename");
+    }
+
+    /**
+     * Get the `exports` folder.
+     *
+     * @return string
+     */
+    protected function getExportsFolder()
+    {
+        return __DIR__ . '/_temp/exports';
     }
 }

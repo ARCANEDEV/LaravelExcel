@@ -1,22 +1,22 @@
 <?php namespace Arcanedev\LaravelExcel\Tests\Importers;
 
-use Arcanedev\LaravelExcel\Importers\CsvImporter;
+use Arcanedev\LaravelExcel\Importers\OpenOfficeImporter;
 use Arcanedev\LaravelExcel\Tests\TestCase;
 use Box\Spout\Common\Type;
 
 /**
- * Class     CsvImporterTest
+ * Class     OpenOfficeImporterTest
  *
  * @package  Arcanedev\LaravelExcel\Tests\Importers
  * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
  */
-class CsvImporterTest extends TestCase
+class OpenOfficeImporterTest extends TestCase
 {
     /* ------------------------------------------------------------------------------------------------
      |  Properties
      | ------------------------------------------------------------------------------------------------
      */
-    /** @var  \Arcanedev\LaravelExcel\Importers\CsvImporter */
+    /** @var  \Arcanedev\LaravelExcel\Importers\OpenOfficeImporter */
     protected $importer;
 
     /* ------------------------------------------------------------------------------------------------
@@ -27,7 +27,7 @@ class CsvImporterTest extends TestCase
     {
         parent::setUp();
 
-        $this->importer = new CsvImporter;
+        $this->importer = new OpenOfficeImporter;
     }
 
     public function tearDown()
@@ -47,29 +47,29 @@ class CsvImporterTest extends TestCase
         $expectations = [
             \Arcanedev\LaravelExcel\Contracts\Importer::class,
             \Arcanedev\LaravelExcel\Importers\AbstractImporter::class,
-            CsvImporter::class,
+            OpenOfficeImporter::class,
         ];
 
         foreach ($expectations as $expected) {
             $this->assertInstanceOf($expected, $this->importer);
         }
 
-        $this->assertSame(Type::CSV, $this->importer->getType());
+        $this->assertSame(Type::ODS, $this->importer->getType());
     }
 
     /** @test */
     public function it_can_load_file()
     {
         $this->importer
-            ->load($this->getFixture('csv/standard.csv'));
+            ->load($this->getFixture('ods/one_sheet_with_strings.ods'))
+            ->setSheet(1);
 
         $data = $this->importer->get();
 
         $this->assertInstanceOf(\Illuminate\Support\Collection::class, $data);
         $this->assertSame([
-            ['csv--11', 'csv--12', 'csv--13'],
-            ['csv--21', 'csv--22', 'csv--23'],
-            ['csv--31', 'csv--32', 'csv--33'],
+            ['ods--11', 'ods--12', 'ods--13'],
+            ['ods--21', 'ods--22', 'ods--23'],
         ], $data->toArray());
     }
 }
