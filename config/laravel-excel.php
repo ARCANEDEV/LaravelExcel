@@ -14,21 +14,25 @@ return [
     'drivers' => [
         'excel' => [
             'options' => [
-
+                'format-dates'        => false,
+                'preserve-empty-rows' => false,
             ],
         ],
 
         'csv'   => [
             'options' => [
-                'field-delimiter' => ',',
-                'field-enclosure' => '"',
-                'add-bom'         => true,
+                'field-delimiter'     => ',',
+                'field-enclosure'     => '"',
+                'encoding'            => 'UTF-8',
+                'eol-character'       => "\n",
+                'preserve-empty-rows' => false,
             ],
         ],
 
         'ods'   => [
             'options' => [
-
+                'format-dates'        => false,
+                'preserve-empty-rows' => false,
             ],
         ],
     ],
