@@ -20,4 +20,13 @@ interface ImporterManager
      * @return \Arcanedev\LaravelExcel\Contracts\Importer
      */
     public function make($driver);
+
+    /**
+     * Get a importer instance.
+     *
+     * @param  string  $driver
+     *
+     * @return \Arcanedev\LaravelExcel\Contracts\Importer
+     */
+    public function driver($driver);
 }

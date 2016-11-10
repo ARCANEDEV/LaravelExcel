@@ -58,11 +58,4 @@ interface Exporter
      * @param  string  $filename
      */
     public function save($filename);
-
-    /**
-     * Output data directly to the browser.
-     *
-     * @param  string  $filename
-     */
-    public function stream($filename);
 }

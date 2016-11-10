@@ -65,4 +65,11 @@ interface Importer
      * @return \Illuminate\Support\Collection
      */
     public function get();
+
+    /**
+     * Get the parsed data for all sheets.
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function all();
 }
