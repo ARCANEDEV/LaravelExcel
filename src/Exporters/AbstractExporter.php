@@ -120,19 +120,6 @@ abstract class AbstractExporter implements ExporterContract
         $this->close();
     }
 
-    /**
-     * Output data directly to the browser.
-     *
-     * @param  string  $filename
-     */
-    public function stream($filename)
-    {
-        $this->create();
-        $this->writer->openToBrowser($filename);
-        $this->makeRows();
-        $this->close();
-    }
-
     /* ------------------------------------------------------------------------------------------------
      |  Other Functions
      | ------------------------------------------------------------------------------------------------
