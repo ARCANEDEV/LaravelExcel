@@ -26,7 +26,7 @@ class LaravelExcelServiceProvider extends PackageServiceProvider
      *
      * @var bool
      */
-    protected $defer = true;
+    protected $defer   = true;
 
     /* ------------------------------------------------------------------------------------------------
      |  Getters & Setters
@@ -88,10 +88,8 @@ class LaravelExcelServiceProvider extends PackageServiceProvider
      */
     private function registerExporter()
     {
-        $this->singleton('arcanedev.excel.exporter', function ($app) {
-            return new ExporterManager($app);
-        });
-        $this->bind(Contracts\ExporterManager::class, 'arcanedev.excel.exporter');
+        $this->singleton(Contracts\ExporterManager::class, ExporterManager::class);
+        $this->singleton('arcanedev.excel.exporter', Contracts\ExporterManager::class);
     }
 
     /**
@@ -99,9 +97,7 @@ class LaravelExcelServiceProvider extends PackageServiceProvider
      */
     private function registerImporter()
     {
-        $this->singleton('arcanedev.excel.importer', function ($app) {
-            return new ImporterManager($app);
-        });
-        $this->bind(Contracts\ImporterManager::class, 'arcanedev.excel.importer');
+        $this->singleton(Contracts\ImporterManager::class, ImporterManager::class);
+        $this->singleton('arcanedev.excel.importer', Contracts\ImporterManager::class);
     }
 }
