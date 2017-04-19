@@ -1,5 +1,6 @@
 <?php namespace Arcanedev\LaravelExcel\Facades;
 
+use Arcanedev\LaravelExcel\Contracts\ImporterManager;
 use Illuminate\Support\Facades\Facade;
 
 /**
@@ -15,5 +16,5 @@ class Importer extends Facade
      *
      * @return string
      */
-    protected static function getFacadeAccessor() { return 'arcanedev.excel.importer'; }
+    protected static function getFacadeAccessor() { return ImporterManager::class; }
 }

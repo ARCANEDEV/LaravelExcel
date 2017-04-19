@@ -10,17 +10,19 @@ use Arcanedev\LaravelExcel\LaravelExcelServiceProvider;
  */
 class LaravelExcelServiceProviderTest extends TestCase
 {
-    /* ------------------------------------------------------------------------------------------------
+    /* -----------------------------------------------------------------
      |  Properties
-     | ------------------------------------------------------------------------------------------------
+     | -----------------------------------------------------------------
      */
+
     /** @var  \Arcanedev\LaravelExcel\LaravelExcelServiceProvider */
     protected $provider;
 
-    /* ------------------------------------------------------------------------------------------------
-     |  Main Functions
-     | ------------------------------------------------------------------------------------------------
+    /* -----------------------------------------------------------------
+     |  Main Methods
+     | -----------------------------------------------------------------
      */
+
     public function setUp()
     {
         parent::setUp();
@@ -35,10 +37,11 @@ class LaravelExcelServiceProviderTest extends TestCase
         parent::tearDown();
     }
 
-    /* ------------------------------------------------------------------------------------------------
-     |  Test Functions
-     | ------------------------------------------------------------------------------------------------
+    /* -----------------------------------------------------------------
+     |  Tests
+     | -----------------------------------------------------------------
      */
+
     /** @test */
     public function it_can_be_instantiated()
     {
@@ -58,9 +61,7 @@ class LaravelExcelServiceProviderTest extends TestCase
     public function it_can_provides()
     {
         $expected = [
-            'arcanedev.excel.exporter',
             \Arcanedev\LaravelExcel\Contracts\ExporterManager::class,
-            'arcanedev.excel.importer',
             \Arcanedev\LaravelExcel\Contracts\ImporterManager::class,
         ];
 
