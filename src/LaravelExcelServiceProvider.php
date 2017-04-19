@@ -10,16 +10,17 @@ use Arcanedev\Support\PackageServiceProvider;
  */
 class LaravelExcelServiceProvider extends PackageServiceProvider
 {
-    /* ------------------------------------------------------------------------------------------------
+    /* -----------------------------------------------------------------
      |  Properties
-     | ------------------------------------------------------------------------------------------------
+     | -----------------------------------------------------------------
      */
+
     /**
      * Package name.
      *
      * @var string
      */
-    protected $package = 'laravel-excel';
+    protected $package = 'excel';
 
     /**
      * Indicates if loading of the provider is deferred.
@@ -28,32 +29,21 @@ class LaravelExcelServiceProvider extends PackageServiceProvider
      */
     protected $defer   = true;
 
-    /* ------------------------------------------------------------------------------------------------
-     |  Getters & Setters
-     | ------------------------------------------------------------------------------------------------
+    /* -----------------------------------------------------------------
+     |  Main Methods
+     | -----------------------------------------------------------------
      */
-    /**
-     * Get the base path of the package.
-     *
-     * @return string
-     */
-    public function getBasePath()
-    {
-        return dirname(__DIR__);
-    }
 
-    /* ------------------------------------------------------------------------------------------------
-     |  Main Functions
-     | ------------------------------------------------------------------------------------------------
-     */
     /**
      * Register the service provider.
      */
     public function register()
     {
+        parent::register();
+
         $this->registerConfig();
-        $this->registerExporter();
-        $this->registerImporter();
+        $this->registerExporterManager();
+        $this->registerImporterManager();
     }
 
     /**
@@ -61,7 +51,7 @@ class LaravelExcelServiceProvider extends PackageServiceProvider
      */
     public function boot()
     {
-        //
+        parent::boot();
     }
 
     /**
@@ -72,32 +62,32 @@ class LaravelExcelServiceProvider extends PackageServiceProvider
     public function provides()
     {
         return [
-            'arcanedev.excel.exporter',
             Contracts\ExporterManager::class,
-            'arcanedev.excel.importer',
             Contracts\ImporterManager::class,
         ];
     }
 
-    /* ------------------------------------------------------------------------------------------------
-     |  Other Functions
-     | ------------------------------------------------------------------------------------------------
+    /* -----------------------------------------------------------------
+     |  Other Methods
+     | -----------------------------------------------------------------
      */
     /**
      * Register the exporter manager.
      */
-    private function registerExporter()
+    private function registerExporterManager()
     {
-        $this->singleton(Contracts\ExporterManager::class, ExporterManager::class);
-        $this->singleton('arcanedev.excel.exporter', Contracts\ExporterManager::class);
+        $this->singleton(Contracts\ExporterManager::class, function ($app) {
+            return new ExporterManager($app);
+        });
     }
 
     /**
      * Register the importer manager.
      */
-    private function registerImporter()
+    private function registerImporterManager()
     {
-        $this->singleton(Contracts\ImporterManager::class, ImporterManager::class);
-        $this->singleton('arcanedev.excel.importer', Contracts\ImporterManager::class);
+        $this->singleton(Contracts\ImporterManager::class, function ($app) {
+            return new ImporterManager($app);
+        });
     }
 }

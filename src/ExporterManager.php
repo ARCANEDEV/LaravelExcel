@@ -1,7 +1,6 @@
 <?php namespace Arcanedev\LaravelExcel;
 
 use Arcanedev\LaravelExcel\Contracts\ExporterManager as ExporterManagerContract;
-use Arcanedev\Support\Manager;
 
 /**
  * Class     ExporterManager
@@ -9,26 +8,13 @@ use Arcanedev\Support\Manager;
  * @package  Arcanedev\LaravelExcel
  * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
  */
-class ExporterManager extends Manager implements ExporterManagerContract
+class ExporterManager extends AbstractManager implements ExporterManagerContract
 {
-    /* ------------------------------------------------------------------------------------------------
-     |  Getters & Setters
-     | ------------------------------------------------------------------------------------------------
-     */
-    /**
-     * Get the default driver name.
-     *
-     * @return string
-     */
-    public function getDefaultDriver()
-    {
-        return $this->app['config']['laravel-excel.default'];
-    }
-
-    /* ------------------------------------------------------------------------------------------------
+    /* -----------------------------------------------------------------
      |  Main Drivers
-     | ------------------------------------------------------------------------------------------------
+     | -----------------------------------------------------------------
      */
+
     /**
      * Get a exporter instance.
      *
@@ -75,21 +61,5 @@ class ExporterManager extends Manager implements ExporterManagerContract
         return new Exporters\OpenOfficeExporter(
             $this->getDriverOptions('ods')
         );
-    }
-
-    /* ------------------------------------------------------------------------------------------------
-     |  Other Functions
-     | ------------------------------------------------------------------------------------------------
-     */
-    /**
-     * Get the driver options.
-     *
-     * @param  string  $driver
-     *
-     * @return array
-     */
-    protected function getDriverOptions($driver)
-    {
-        return $this->app['config']->get("laravel-excel.drivers.$driver.options", []);
     }
 }
