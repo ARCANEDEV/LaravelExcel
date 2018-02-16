@@ -25,14 +25,14 @@ class CsvImporterTest extends TestCase
      | -----------------------------------------------------------------
      */
 
-    public function setUp()
+    protected function setUp()
     {
         parent::setUp();
 
         $this->importer = new CsvImporter;
     }
 
-    public function tearDown()
+    protected function tearDown()
     {
         unset($this->importer);
 
@@ -54,10 +54,10 @@ class CsvImporterTest extends TestCase
         ];
 
         foreach ($expectations as $expected) {
-            $this->assertInstanceOf($expected, $this->importer);
+            static::assertInstanceOf($expected, $this->importer);
         }
 
-        $this->assertSame(Type::CSV, $this->importer->getType());
+        static::assertSame(Type::CSV, $this->importer->getType());
     }
 
     /** @test */
@@ -68,8 +68,8 @@ class CsvImporterTest extends TestCase
 
         $data = $this->importer->get();
 
-        $this->assertInstanceOf(\Illuminate\Support\Collection::class, $data);
-        $this->assertSame([
+        static::assertInstanceOf(\Illuminate\Support\Collection::class, $data);
+        static::assertSame([
             ['csv--11', 'csv--12', 'csv--13'],
             ['csv--21', 'csv--22', 'csv--23'],
             ['csv--31', 'csv--32', 'csv--33'],

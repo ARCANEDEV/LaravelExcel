@@ -71,6 +71,7 @@ class LaravelExcelServiceProvider extends PackageServiceProvider
      |  Other Methods
      | -----------------------------------------------------------------
      */
+
     /**
      * Register the exporter manager.
      */

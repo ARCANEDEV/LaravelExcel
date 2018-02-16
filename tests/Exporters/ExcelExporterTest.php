@@ -26,14 +26,14 @@ class ExcelExporterTest extends TestCase
      | -----------------------------------------------------------------
      */
 
-    public function setUp()
+    protected function setUp()
     {
         parent::setUp();
 
         $this->exporter = new ExcelExporter;
     }
 
-    public function tearDown()
+    protected function tearDown()
     {
         unset($this->exporter);
 
@@ -55,10 +55,10 @@ class ExcelExporterTest extends TestCase
         ];
 
         foreach ($expectations as $expected) {
-            $this->assertInstanceOf($expected, $this->exporter);
+            static::assertInstanceOf($expected, $this->exporter);
         }
 
-        $this->assertSame(Type::XLSX, $this->exporter->getType());
+        static::assertSame(Type::XLSX, $this->exporter->getType());
     }
 
     /** @test */
@@ -83,7 +83,7 @@ class ExcelExporterTest extends TestCase
 
         $sheets = $this->getAllRowsFromFile('xlsx/one_sheet_with_inline_strings.xlsx');
 
-        $this->assertSame($expected, $sheets->first()->toArray());
+        static::assertSame($expected, $sheets->first()->toArray());
     }
 
     /* -----------------------------------------------------------------

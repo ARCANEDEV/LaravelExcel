@@ -15,7 +15,7 @@ abstract class TestCase extends BaseTestCase
      | -----------------------------------------------------------------
      */
 
-    public function setUp()
+    protected function setUp()
     {
         parent::setUp();
 
@@ -79,6 +79,6 @@ abstract class TestCase extends BaseTestCase
      */
     protected function getExportsFolder()
     {
-        return __DIR__ . '/_temp/exports';
+        return __DIR__.'/_temp/exports';
     }
 }

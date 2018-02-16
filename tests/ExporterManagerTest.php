@@ -21,14 +21,14 @@ class ExporterManagerTest extends TestCase
      | -----------------------------------------------------------------
      */
 
-    public function setUp()
+    protected function setUp()
     {
         parent::setUp();
 
         $this->manager = $this->app->make(\Arcanedev\LaravelExcel\Contracts\ExporterManager::class);
     }
 
-    public function tearDown()
+    protected function tearDown()
     {
         unset($this->manager);
 
@@ -50,7 +50,7 @@ class ExporterManagerTest extends TestCase
         ];
 
         foreach ($expectations as $expected) {
-            $this->assertInstanceOf($expected, $this->manager);
+            static::assertInstanceOf($expected, $this->manager);
         }
     }
 
@@ -59,8 +59,8 @@ class ExporterManagerTest extends TestCase
     {
         $exporter = $this->manager->make('excel');
 
-        $this->assertInstanceOf(\Arcanedev\LaravelExcel\Exporters\ExcelExporter::class, $exporter);
-        $this->assertSame('xlsx', $exporter->getType());
+        static::assertInstanceOf(\Arcanedev\LaravelExcel\Exporters\ExcelExporter::class, $exporter);
+        static::assertSame('xlsx', $exporter->getType());
     }
 
     /** @test */
@@ -68,8 +68,8 @@ class ExporterManagerTest extends TestCase
     {
         $exporter = $this->manager->make('csv');
 
-        $this->assertInstanceOf(\Arcanedev\LaravelExcel\Exporters\CsvExporter::class, $exporter);
-        $this->assertSame('csv', $exporter->getType());
+        static::assertInstanceOf(\Arcanedev\LaravelExcel\Exporters\CsvExporter::class, $exporter);
+        static::assertSame('csv', $exporter->getType());
     }
 
     /** @test */
@@ -77,7 +77,7 @@ class ExporterManagerTest extends TestCase
     {
         $exporter = $this->manager->make('open-office');
 
-        $this->assertInstanceOf(\Arcanedev\LaravelExcel\Exporters\OpenOfficeExporter::class, $exporter);
-        $this->assertSame('ods', $exporter->getType());
+        static::assertInstanceOf(\Arcanedev\LaravelExcel\Exporters\OpenOfficeExporter::class, $exporter);
+        static::assertSame('ods', $exporter->getType());
     }
 }

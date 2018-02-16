@@ -124,7 +124,7 @@ abstract class AbstractImporter implements ImporterContract
     }
 
     /* -----------------------------------------------------------------
-     |  Main Functions
+     |  Main Methods
      | -----------------------------------------------------------------
      */
 
@@ -174,7 +174,7 @@ abstract class AbstractImporter implements ImporterContract
     }
 
     /* -----------------------------------------------------------------
-     |  Other Functions
+     |  Other Methods
      | -----------------------------------------------------------------
      */
 
