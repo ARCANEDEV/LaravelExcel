@@ -34,9 +34,7 @@ class ExporterManager extends AbstractManager implements ExporterManagerContract
      */
     public function createExcelDriver()
     {
-        return new Exporters\ExcelExporter(
-            $this->getDriverOptions('excel')
-        );
+        return $this->buildExporter('excel');
     }
 
     /**
@@ -46,9 +44,7 @@ class ExporterManager extends AbstractManager implements ExporterManagerContract
      */
     public function createCsvDriver()
     {
-        return new Exporters\CsvExporter(
-            $this->getDriverOptions('csv')
-        );
+        return $this->buildExporter('csv');
     }
 
     /**
@@ -58,8 +54,26 @@ class ExporterManager extends AbstractManager implements ExporterManagerContract
      */
     public function createOpenOfficeDriver()
     {
-        return new Exporters\OpenOfficeExporter(
-            $this->getDriverOptions('ods')
+        return $this->buildExporter('ods');
+    }
+
+    /* -----------------------------------------------------------------
+     |  Other Methods
+     | -----------------------------------------------------------------
+     */
+
+    /**
+     * Build the exporter.
+     *
+     * @param  string  $driver
+     *
+     * @return \Arcanedev\LaravelExcel\Contracts\Exporter
+     */
+    protected function buildExporter($driver)
+    {
+        return $this->app->makeWith(
+            $this->getDriverExporter($driver),
+            $this->getDriverOptions($driver)
         );
     }
 }

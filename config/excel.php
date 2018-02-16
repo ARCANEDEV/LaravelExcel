@@ -16,6 +16,8 @@ return [
 
     'drivers' => [
         'excel' => [
+            'importer' => Arcanedev\LaravelExcel\Importers\ExcelImporter::class,
+            'exporter' => Arcanedev\LaravelExcel\Exporters\ExcelExporter::class,
             'options'  => [
                 'format-dates'        => false,
                 'preserve-empty-rows' => false,
@@ -23,7 +25,9 @@ return [
         ],
 
         'csv'   => [
-            'options' => [
+            'importer' => Arcanedev\LaravelExcel\Importers\CsvImporter::class,
+            'exporter' => Arcanedev\LaravelExcel\Exporters\CsvExporter::class,
+            'options'  => [
                 'field-delimiter'     => ',',
                 'field-enclosure'     => '"',
                 'encoding'            => 'UTF-8',
@@ -33,7 +37,9 @@ return [
         ],
 
         'ods'   => [
-            'options' => [
+            'importer' => Arcanedev\LaravelExcel\Importers\OpenOfficeImporter::class,
+            'exporter' => Arcanedev\LaravelExcel\Exporters\OpenOfficeExporter::class,
+            'options'  => [
                 'format-dates'        => false,
                 'preserve-empty-rows' => false,
             ],
