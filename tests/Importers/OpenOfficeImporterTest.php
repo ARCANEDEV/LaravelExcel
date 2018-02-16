@@ -25,14 +25,14 @@ class OpenOfficeImporterTest extends TestCase
      | -----------------------------------------------------------------
      */
 
-    public function setUp()
+    protected function setUp()
     {
         parent::setUp();
 
         $this->importer = new OpenOfficeImporter;
     }
 
-    public function tearDown()
+    protected function tearDown()
     {
         unset($this->importer);
 
@@ -54,10 +54,10 @@ class OpenOfficeImporterTest extends TestCase
         ];
 
         foreach ($expectations as $expected) {
-            $this->assertInstanceOf($expected, $this->importer);
+            static::assertInstanceOf($expected, $this->importer);
         }
 
-        $this->assertSame(Type::ODS, $this->importer->getType());
+        static::assertSame(Type::ODS, $this->importer->getType());
     }
 
     /** @test */
@@ -69,8 +69,8 @@ class OpenOfficeImporterTest extends TestCase
 
         $data = $this->importer->get();
 
-        $this->assertInstanceOf(\Illuminate\Support\Collection::class, $data);
-        $this->assertSame([
+        static::assertInstanceOf(\Illuminate\Support\Collection::class, $data);
+        static::assertSame([
             ['ods--11', 'ods--12', 'ods--13'],
             ['ods--21', 'ods--22', 'ods--23'],
         ], $data->toArray());

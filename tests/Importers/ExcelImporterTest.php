@@ -25,14 +25,14 @@ class ExcelImporterTest extends TestCase
      | -----------------------------------------------------------------
      */
 
-    public function setUp()
+    protected function setUp()
     {
         parent::setUp();
 
         $this->importer = new ExcelImporter;
     }
 
-    public function tearDown()
+    protected function tearDown()
     {
         unset($this->importer);
 
@@ -54,10 +54,10 @@ class ExcelImporterTest extends TestCase
         ];
 
         foreach ($expectations as $expected) {
-            $this->assertInstanceOf($expected, $this->importer);
+            static::assertInstanceOf($expected, $this->importer);
         }
 
-        $this->assertSame(Type::XLSX, $this->importer->getType());
+        static::assertSame(Type::XLSX, $this->importer->getType());
     }
 
     /** @test */
@@ -69,8 +69,8 @@ class ExcelImporterTest extends TestCase
 
         $data = $this->importer->get();
 
-        $this->assertInstanceOf(\Illuminate\Support\Collection::class, $data);
-        $this->assertSame([
+        static::assertInstanceOf(\Illuminate\Support\Collection::class, $data);
+        static::assertSame([
             ['s1 - A1', 's1 - B1', 's1 - C1', 's1 - D1', 's1 - E1'],
             ['s1 - A2', 's1 - B2', 's1 - C2', 's1 - D2', 's1 - E2'],
             ['s1 - A3', 's1 - B3', 's1 - C3', 's1 - D3', 's1 - E3'],

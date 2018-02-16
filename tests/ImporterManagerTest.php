@@ -23,14 +23,14 @@ class ImporterManagerTest extends TestCase
      | -----------------------------------------------------------------
      */
 
-    public function setUp()
+    protected function setUp()
     {
         parent::setUp();
 
         $this->manager = $this->app->make(\Arcanedev\LaravelExcel\Contracts\ImporterManager::class);
     }
 
-    public function tearDown()
+    protected function tearDown()
     {
         unset($this->manager);
 
@@ -52,7 +52,7 @@ class ImporterManagerTest extends TestCase
         ];
 
         foreach ($expectations as $expected) {
-            $this->assertInstanceOf($expected, $this->manager);
+            static::assertInstanceOf($expected, $this->manager);
         }
     }
 
@@ -61,8 +61,8 @@ class ImporterManagerTest extends TestCase
     {
         $importer = $this->manager->make('excel');
 
-        $this->assertInstanceOf(Importers\ExcelImporter::class, $importer);
-        $this->assertSame('xlsx', $importer->getType());
+        static::assertInstanceOf(Importers\ExcelImporter::class, $importer);
+        static::assertSame('xlsx', $importer->getType());
     }
 
     /** @test */
@@ -70,8 +70,8 @@ class ImporterManagerTest extends TestCase
     {
         $importer = $this->manager->make('csv');
 
-        $this->assertInstanceOf(Importers\CsvImporter::class, $importer);
-        $this->assertSame('csv', $importer->getType());
+        static::assertInstanceOf(Importers\CsvImporter::class, $importer);
+        static::assertSame('csv', $importer->getType());
     }
 
     /** @test */
@@ -79,8 +79,8 @@ class ImporterManagerTest extends TestCase
     {
         $importer = $this->manager->make('open-office');
 
-        $this->assertInstanceOf(Importers\OpenOfficeImporter::class, $importer);
-        $this->assertSame('ods', $importer->getType());
+        static::assertInstanceOf(Importers\OpenOfficeImporter::class, $importer);
+        static::assertSame('ods', $importer->getType());
     }
 
     /** @test */
@@ -88,7 +88,7 @@ class ImporterManagerTest extends TestCase
     {
         $importer = $this->manager->make(null);
 
-        $this->assertInstanceOf(Importers\ExcelImporter::class, $importer);
-        $this->assertSame('xlsx', $importer->getType());
+        static::assertInstanceOf(Importers\ExcelImporter::class, $importer);
+        static::assertSame('xlsx', $importer->getType());
     }
 }

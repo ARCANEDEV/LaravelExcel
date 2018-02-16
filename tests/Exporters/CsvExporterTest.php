@@ -26,14 +26,14 @@ class CsvExporterTest extends TestCase
      | -----------------------------------------------------------------
      */
 
-    public function setUp()
+    protected function setUp()
     {
         parent::setUp();
 
         $this->exporter = new CsvExporter;
     }
 
-    public function tearDown()
+    protected function tearDown()
     {
         unset($this->exporter);
 
@@ -55,10 +55,10 @@ class CsvExporterTest extends TestCase
         ];
 
         foreach ($expectations as $expected) {
-            $this->assertInstanceOf($expected, $this->exporter);
+            static::assertInstanceOf($expected, $this->exporter);
         }
 
-        $this->assertSame(Type::CSV, $this->exporter->getType());
+        static::assertSame(Type::CSV, $this->exporter->getType());
     }
 
     /** @test */
@@ -80,7 +80,7 @@ class CsvExporterTest extends TestCase
 
         $sheets = $this->getAllRowsFromFile('csv/standard.csv');
 
-        $this->assertSame($expected, $sheets->first()->toArray());
+        static::assertSame($expected, $sheets->first()->toArray());
     }
 
     /* ------------------------------------------------------------------------------------------------

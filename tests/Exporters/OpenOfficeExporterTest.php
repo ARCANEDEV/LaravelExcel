@@ -26,14 +26,14 @@ class OpenOfficeExporterTest extends TestCase
      | -----------------------------------------------------------------
      */
 
-    public function setUp()
+    protected function setUp()
     {
         parent::setUp();
 
         $this->exporter = new OpenOfficeExporter;
     }
 
-    public function tearDown()
+    protected function tearDown()
     {
         unset($this->exporter);
 
@@ -55,10 +55,10 @@ class OpenOfficeExporterTest extends TestCase
         ];
 
         foreach ($expectations as $expected) {
-            $this->assertInstanceOf($expected, $this->exporter);
+            static::assertInstanceOf($expected, $this->exporter);
         }
 
-        $this->assertSame(Type::ODS, $this->exporter->getType());
+        static::assertSame(Type::ODS, $this->exporter->getType());
     }
 
     /** @test */
@@ -83,7 +83,7 @@ class OpenOfficeExporterTest extends TestCase
 
         $sheets = $this->getAllRowsFromFile('ods/one_sheet_with_inline_strings.ods');
 
-        $this->assertSame($expected, $sheets->first()->toArray());
+        static::assertSame($expected, $sheets->first()->toArray());
     }
 
     /* -----------------------------------------------------------------
