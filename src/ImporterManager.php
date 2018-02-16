@@ -30,36 +30,50 @@ class ImporterManager extends AbstractManager implements ImporterManagerContract
     /**
      * Get the Excel driver instance.
      *
-     * @return \Arcanedev\LaravelExcel\Importers\ExcelImporter
+     * @return \Arcanedev\LaravelExcel\Contracts\Importer
      */
     public function createExcelDriver()
     {
-        return new Importers\ExcelImporter(
-            $this->getDriverOptions('excel')
-        );
+        return $this->buildImporter('excel');
     }
 
     /**
      * Get the CSV driver instance.
      *
-     * @return \Arcanedev\LaravelExcel\Importers\CsvImporter
+     * @return \Arcanedev\LaravelExcel\Contracts\Importer
      */
     public function createCsvDriver()
     {
-        return new Importers\CsvImporter(
-            $this->getDriverOptions('csv')
-        );
+        return $this->buildImporter('csv');
     }
 
     /**
      * Get the Open office driver instance.
      *
-     * @return \Arcanedev\LaravelExcel\Importers\OpenOfficeImporter
+     * @return \Arcanedev\LaravelExcel\Contracts\Importer
      */
     public function createOpenOfficeDriver()
     {
-        return new Importers\OpenOfficeImporter(
-            $this->getDriverOptions('ods')
+        return $this->buildImporter('ods');
+    }
+
+    /* -----------------------------------------------------------------
+     |  Other Methods
+     | -----------------------------------------------------------------
+     */
+
+    /**
+     * Build the importer.
+     *
+     * @param  string  $driver
+     *
+     * @return \Arcanedev\LaravelExcel\Contracts\Importer
+     */
+    protected function buildImporter($driver)
+    {
+        return $this->app->makeWith(
+            $this->getDriverImporter($driver),
+            $this->getDriverOptions($driver)
         );
     }
 }

@@ -19,7 +19,7 @@ class ExcelExporter extends AbstractExporter
     protected $type = Type::XLSX;
 
     /* -----------------------------------------------------------------
-     |  Other Methods
+     |  Other Met
      | -----------------------------------------------------------------
      */
 
