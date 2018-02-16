@@ -4,6 +4,7 @@ use Arcanedev\LaravelExcel\Exporters\OpenOfficeExporter;
 use Arcanedev\LaravelExcel\Importers\OpenOfficeImporter;
 use Arcanedev\LaravelExcel\Tests\TestCase;
 use Box\Spout\Common\Type;
+use Illuminate\Support\Collection;
 
 /**
  * Class     OpenOfficeExporterTest
@@ -72,13 +73,13 @@ class OpenOfficeExporterTest extends TestCase
             ['s1 - A5', 's1 - B5', 's1 - C5', 's1 - D5', 's1 - E5'],
         ];
 
-        $data = collect($expected)->transform(function ($row) {
-            return collect($row);
+        $data = Collection::make($expected)->transform(function ($row) {
+            return new Collection($row);
         });
 
         $this->exporter->load($data);
         $this->exporter->save(
-            $path = $this->getExportsFolder() . '/ods/one_sheet_with_inline_strings.ods'
+            $path = $this->getExportsFolder().'/ods/one_sheet_with_inline_strings.ods'
         );
 
         $sheets = $this->getAllRowsFromFile('ods/one_sheet_with_inline_strings.ods');

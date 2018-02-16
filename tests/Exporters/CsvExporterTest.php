@@ -4,6 +4,7 @@ use Arcanedev\LaravelExcel\Exporters\CsvExporter;
 use Arcanedev\LaravelExcel\Importers\CsvImporter;
 use Arcanedev\LaravelExcel\Tests\TestCase;
 use Box\Spout\Common\Type;
+use Illuminate\Support\Collection;
 
 /**
  * Class     CsvExporterTest
@@ -69,13 +70,13 @@ class CsvExporterTest extends TestCase
             ['csv--21', 'csv--22', 'csv--23'],
             ['csv--31', 'csv--32', 'csv--33'],
         ];
-        $data = collect()->transform(function ($row) {
-            return collect($row);
+        $data = Collection::make()->transform(function ($row) {
+            return new Collection($row);
         });
 
         $this->exporter->load($data);
         $this->exporter->save(
-            $path = $this->getExportsFolder() . '/csv/standard.csv'
+            $path = $this->getExportsFolder().'/csv/standard.csv'
         );
 
         $sheets = $this->getAllRowsFromFile('csv/standard.csv');
@@ -83,10 +84,11 @@ class CsvExporterTest extends TestCase
         static::assertSame($expected, $sheets->first()->toArray());
     }
 
-    /* ------------------------------------------------------------------------------------------------
-     |  Other Functions
-     | ------------------------------------------------------------------------------------------------
+    /* -----------------------------------------------------------------
+     |  Other Methods
+     | -----------------------------------------------------------------
      */
+
     private function getAllRowsFromFile(
         $fileName,
         $fieldDelimiter = ',',

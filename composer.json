@@ -15,14 +15,14 @@
         }
     ],
     "require": {
-        "php":               ">=7.0",
+        "php":               ">=7.1.3",
         "box/spout":         "~2.7",
-        "arcanedev/support": "~4.2.0"
+        "arcanedev/support": "~4.3.0"
     },
     "require-dev": {
-        "orchestra/testbench": "~3.5.0",
-        "phpunit/phpcov":      "~4.0",
-        "phpunit/phpunit":     "~6.0"
+        "orchestra/testbench": "~3.6.0",
+        "phpunit/phpcov":      "~5.0",
+        "phpunit/phpunit":     "~7.0"
     },
     "autoload": {
         "psr-4": {
@@ -36,7 +36,7 @@
     },
     "config": {
         "platform": {
-            "php": "7.0.0"
+            "php": "7.1.3"
         }
     },
     "extra": {
