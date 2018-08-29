@@ -1,7 +1,6 @@
 <?php namespace Arcanedev\LaravelExcel\Tests\Importers;
 
 use Arcanedev\LaravelExcel\Importers\OpenOfficeImporter;
-use Arcanedev\LaravelExcel\Tests\TestCase;
 use Box\Spout\Common\Type;
 
 /**
@@ -10,7 +9,7 @@ use Box\Spout\Common\Type;
  * @package  Arcanedev\LaravelExcel\Tests\Importers
  * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
  */
-class OpenOfficeImporterTest extends TestCase
+class OpenOfficeImporterTest extends AbstractImporterTest
 {
     /* -----------------------------------------------------------------
      |  Properties

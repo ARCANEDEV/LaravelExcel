@@ -2,6 +2,7 @@
 
 use Arcanedev\LaravelExcel\Contracts\Importer as ImporterContract;
 use Arcanedev\LaravelExcel\Contracts\Parser as ParserContract;
+use Arcanedev\LaravelExcel\Traits\WithOptions;
 use Box\Spout\Reader\ReaderFactory;
 use Illuminate\Support\Collection;
 
@@ -13,6 +14,13 @@ use Illuminate\Support\Collection;
  */
 abstract class AbstractImporter implements ImporterContract
 {
+    /* -----------------------------------------------------------------
+     |  Traits
+     | -----------------------------------------------------------------
+     */
+
+    use WithOptions;
+
     /* -----------------------------------------------------------------
      |  Properties
      | -----------------------------------------------------------------
@@ -32,9 +40,6 @@ abstract class AbstractImporter implements ImporterContract
 
     /** @var \Box\Spout\Reader\ReaderInterface */
     protected $reader;
-
-    /** @var array */
-    protected $options = [];
 
     /* -----------------------------------------------------------------
      |  Constructor
@@ -107,20 +112,6 @@ abstract class AbstractImporter implements ImporterContract
     public function getType()
     {
         return $this->type;
-    }
-
-    /**
-     * Set the reader options.
-     *
-     * @param  array  $options
-     *
-     * @return self
-     */
-    public function setOptions(array $options)
-    {
-        $this->options = $options;
-
-        return $this;
     }
 
     /* -----------------------------------------------------------------
@@ -199,7 +190,7 @@ abstract class AbstractImporter implements ImporterContract
      */
     protected function parseRows()
     {
-        $rows = Collection::make();
+        $rows = new Collection;
 
         foreach ($this->reader->getSheetIterator() as $index => $sheet) {
             if ($index !== $this->sheet) continue;
@@ -219,10 +210,10 @@ abstract class AbstractImporter implements ImporterContract
      */
     protected function parseAllRows()
     {
-        $sheets = Collection::make();
+        $sheets = new Collection;
 
         foreach ($this->reader->getSheetIterator() as $index => $sheet) {
-            $rows = Collection::make();
+            $rows = new Collection;
 
             foreach ($sheet->getRowIterator() as $row) {
                 $rows->push($this->parser->transform($row));

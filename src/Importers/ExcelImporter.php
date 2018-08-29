@@ -1,7 +1,6 @@
 <?php namespace Arcanedev\LaravelExcel\Importers;
 
 use Box\Spout\Common\Type;
-use Illuminate\Support\Arr;
 
 /**
  * Class     ExcelImporter
@@ -33,11 +32,7 @@ class ExcelImporter extends AbstractImporter
     protected function loadOptions()
     {
         $this->reader
-            ->setShouldFormatDates(
-                Arr::get($this->options, 'format-dates', false)
-            )
-            ->setShouldPreserveEmptyRows(
-                Arr::get($this->options, 'preserve-empty-rows', false)
-            );
+             ->setShouldFormatDates($this->getOption('format-dates', false))
+             ->setShouldPreserveEmptyRows($this->getOption('preserve-empty-rows', false));
     }
 }
