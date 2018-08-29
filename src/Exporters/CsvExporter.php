@@ -1,7 +1,6 @@
 <?php namespace Arcanedev\LaravelExcel\Exporters;
 
 use Box\Spout\Common\Type;
-use Illuminate\Support\Arr;
 
 /**
  * Class     CsvExporter
@@ -33,14 +32,8 @@ class CsvExporter extends AbstractExporter
     protected function loadOptions()
     {
         $this->writer
-            ->setFieldDelimiter(
-                Arr::get($this->options, 'field-delimiter', ';')
-            )
-            ->setFieldEnclosure(
-                Arr::get($this->options, 'field-enclosure', '"')
-            )
-            ->setShouldAddBOM(
-                Arr::get($this->options, 'add-bom', true)
-            );
+             ->setFieldDelimiter($this->getOption('field-delimiter', ';'))
+             ->setFieldEnclosure($this->getOption('field-enclosure', '"'))
+             ->setShouldAddBOM($this->getOption('add-bom', true));
     }
 }
