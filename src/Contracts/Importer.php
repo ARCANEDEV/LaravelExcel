@@ -47,6 +47,32 @@ interface Importer
      */
     public function getType();
 
+    /**
+     * Set a reader's option.
+     *
+     * @param  string  $key
+     * @param  mixed   $value
+     *
+     * @return self
+     */
+    public function setOption($key, $value);
+
+    /**
+     * Set the reader's options.
+     *
+     * @param  array  $options
+     *
+     * @return self
+     */
+    public function setOptions(array $options);
+
+    /**
+     * Get the reader's options.
+     *
+     * @return array
+     */
+    public function getOptions();
+
     /* -----------------------------------------------------------------
      |  Main Methods
      | -----------------------------------------------------------------
@@ -74,4 +100,11 @@ interface Importer
      * @return \Illuminate\Support\Collection
      */
     public function all();
+
+    /**
+     * Reset the reader's options.
+     *
+     * @return self
+     */
+    public function resetOptions();
 }
