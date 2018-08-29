@@ -1,9 +1,10 @@
 <?php namespace Arcanedev\LaravelExcel\Exporters;
 
-use Illuminate\Support\Collection;
-use Box\Spout\Writer\WriterFactory;
-use Arcanedev\LaravelExcel\Contracts\Serializer as SerializerContract;
 use Arcanedev\LaravelExcel\Contracts\Exporter as ExporterContract;
+use Arcanedev\LaravelExcel\Contracts\Serializer as SerializerContract;
+use Arcanedev\LaravelExcel\Traits\WithOptions;
+use Box\Spout\Writer\WriterFactory;
+use Illuminate\Support\Collection;
 
 /**
  * Class     AbstractExporter
@@ -13,6 +14,13 @@ use Arcanedev\LaravelExcel\Contracts\Exporter as ExporterContract;
  */
 abstract class AbstractExporter implements ExporterContract
 {
+    /* -----------------------------------------------------------------
+     |  Traits
+     | -----------------------------------------------------------------
+     */
+
+    use WithOptions;
+
     /* -----------------------------------------------------------------
      |  Properties
      | -----------------------------------------------------------------
@@ -29,9 +37,6 @@ abstract class AbstractExporter implements ExporterContract
 
     /** @var \Box\Spout\Writer\WriterInterface */
     protected $writer;
-
-    /** @var array */
-    protected $options = [];
 
     /* -----------------------------------------------------------------
      |  Constructor
@@ -76,20 +81,6 @@ abstract class AbstractExporter implements ExporterContract
     public function getType()
     {
         return $this->type;
-    }
-
-    /**
-     * Set the writer options.
-     *
-     * @param  array  $options
-     *
-     * @return self
-     */
-    public function setOptions(array $options)
-    {
-        $this->options = $options;
-
-        return $this;
     }
 
     /* -----------------------------------------------------------------

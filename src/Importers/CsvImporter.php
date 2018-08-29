@@ -1,7 +1,6 @@
 <?php namespace Arcanedev\LaravelExcel\Importers;
 
 use Box\Spout\Common\Type;
-use Illuminate\Support\Arr;
 
 /**
  * Class     CsvImporter
@@ -33,20 +32,10 @@ class CsvImporter extends AbstractImporter
     protected function loadOptions()
     {
         $this->reader
-            ->setFieldDelimiter(
-                Arr::get($this->options, 'field-delimiter', ',')
-            )
-            ->setFieldEnclosure(
-                Arr::get($this->options, 'field-enclosure', '"')
-            )
-            ->setEndOfLineCharacter(
-                Arr::get($this->options, 'eol-character', "\n")
-            )
-            ->setEncoding(
-                Arr::get($this->options, 'encoding', 'UTF-8')
-            )
-            ->setShouldPreserveEmptyRows(
-                Arr::get($this->options, 'preserve-empty-rows', false)
-            );
+             ->setFieldDelimiter($this->getOption('field-delimiter', ','))
+             ->setFieldEnclosure($this->getOption('field-enclosure', '"'))
+             ->setEndOfLineCharacter($this->getOption('eol-character', "\n"))
+             ->setEncoding($this->getOption('encoding', 'UTF-8'))
+             ->setShouldPreserveEmptyRows($this->getOption('preserve-empty-rows', false));
     }
 }

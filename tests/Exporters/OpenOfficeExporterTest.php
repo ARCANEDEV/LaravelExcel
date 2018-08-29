@@ -2,7 +2,6 @@
 
 use Arcanedev\LaravelExcel\Exporters\OpenOfficeExporter;
 use Arcanedev\LaravelExcel\Importers\OpenOfficeImporter;
-use Arcanedev\LaravelExcel\Tests\TestCase;
 use Box\Spout\Common\Type;
 use Illuminate\Support\Collection;
 
@@ -12,7 +11,7 @@ use Illuminate\Support\Collection;
  * @package  Arcanedev\LaravelExcel\Tests\Exporters
  * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
  */
-class OpenOfficeExporterTest extends TestCase
+class OpenOfficeExporterTest extends AbstractExporterTest
 {
     /* -----------------------------------------------------------------
      |  Properties
