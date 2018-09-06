@@ -23,15 +23,6 @@ interface Importer
     public function setPath($path);
 
     /**
-     * Set the sheet number.
-     *
-     * @param  int  $sheet
-     *
-     * @return self
-     */
-    public function setSheet($sheet);
-
-    /**
      * Set the parser.
      *
      * @param  \Arcanedev\LaravelExcel\Contracts\Parser  $parser

@@ -62,11 +62,8 @@ class ExcelImporterTest extends AbstractImporterTest
     /** @test */
     public function it_can_load_file()
     {
-        $this->importer
-            ->load($this->getFixture('xlsx/one_sheet_with_inline_strings.xlsx'))
-            ->setSheet(1);
-
-        $data = $this->importer->get();
+        $path = $this->getFixture('xlsx/one_sheet_with_inline_strings.xlsx');
+        $data = $this->importer->load($path)->get();
 
         static::assertInstanceOf(\Illuminate\Support\Collection::class, $data);
         static::assertSame([

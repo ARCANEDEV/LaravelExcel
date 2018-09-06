@@ -62,10 +62,8 @@ class CsvImporterTest extends AbstractImporterTest
     /** @test */
     public function it_can_load_file()
     {
-        $this->importer
-            ->load($this->getFixture('csv/standard.csv'));
-
-        $data = $this->importer->get();
+        $path = $this->getFixture('csv/standard.csv');
+        $data = $this->importer->load($path)->get();
 
         static::assertInstanceOf(\Illuminate\Support\Collection::class, $data);
         static::assertSame([

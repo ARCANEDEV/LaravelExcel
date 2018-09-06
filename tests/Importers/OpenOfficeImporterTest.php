@@ -62,11 +62,8 @@ class OpenOfficeImporterTest extends AbstractImporterTest
     /** @test */
     public function it_can_load_file()
     {
-        $this->importer
-            ->load($this->getFixture('ods/one_sheet_with_strings.ods'))
-            ->setSheet(1);
-
-        $data = $this->importer->get();
+        $path = $this->getFixture('ods/one_sheet_with_strings.ods');
+        $data = $this->importer->load($path)->get();
 
         static::assertInstanceOf(\Illuminate\Support\Collection::class, $data);
         static::assertSame([
