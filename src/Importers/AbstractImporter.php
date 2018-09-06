@@ -11,6 +11,8 @@ use Illuminate\Support\Collection;
  *
  * @package  Arcanedev\LaravelExcel\Importer
  * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
+ *
+ * @todo: Refactor the parse methods
  */
 abstract class AbstractImporter implements ImporterContract
 {
@@ -31,9 +33,6 @@ abstract class AbstractImporter implements ImporterContract
 
     /** @var  string */
     protected $path = '';
-
-    /** @var  int */
-    protected $sheet = 0;
 
     /** @var  \Arcanedev\LaravelExcel\Contracts\Parser */
     protected $parser;
@@ -72,20 +71,6 @@ abstract class AbstractImporter implements ImporterContract
     public function setPath($path)
     {
         $this->path = $path;
-
-        return $this;
-    }
-
-    /**
-     * Set the sheet number.
-     *
-     * @param  int  $sheet
-     *
-     * @return self
-     */
-    public function setSheet($sheet)
-    {
-        $this->sheet = $sheet;
 
         return $this;
     }
@@ -134,16 +119,15 @@ abstract class AbstractImporter implements ImporterContract
     /**
      * Get the parsed data for a single sheet.
      *
-     * @param  int  $sheet
+     * @param  int|string  $sheet
      *
      * @return \Illuminate\Support\Collection
      */
     public function get($sheet = 1)
     {
-        $this->setSheet($sheet);
         $this->create();
         $this->reader->open($this->path);
-        $collection = $this->parseRows();
+        $collection = $this->parseRows($sheet);
         $this->reader->close();
 
         return $collection;
@@ -156,12 +140,7 @@ abstract class AbstractImporter implements ImporterContract
      */
     public function all()
     {
-        $this->create();
-        $this->reader->open($this->path);
-        $collection = $this->parseAllRows();
-        $this->reader->close();
-
-        return $collection;
+        return $this->get('*');
     }
 
     /* -----------------------------------------------------------------
@@ -186,42 +165,42 @@ abstract class AbstractImporter implements ImporterContract
     /**
      * Parse the rows of selected sheet.
      *
-     * @return \Illuminate\Support\Collection
-     */
-    protected function parseRows()
-    {
-        $rows = new Collection;
-
-        foreach ($this->reader->getSheetIterator() as $index => $sheet) {
-            if ($index !== $this->sheet) continue;
-
-            foreach ($sheet->getRowIterator() as $row) {
-                $rows->push($this->parser->transform($row));
-            }
-        }
-
-        return $rows;
-    }
-
-    /**
-     * Parse all the rows.
+     * @param  int|string  $sheetIndex
      *
      * @return \Illuminate\Support\Collection
      */
-    protected function parseAllRows()
+    protected function parseRows($sheetIndex)
     {
-        $sheets = new Collection;
+        $sheets = $this->newCollection();
 
         foreach ($this->reader->getSheetIterator() as $index => $sheet) {
-            $rows = new Collection;
+            if ($sheetIndex === '*') {
+                $rows = $this->newCollection();
 
-            foreach ($sheet->getRowIterator() as $row) {
-                $rows->push($this->parser->transform($row));
+                foreach ($sheet->getRowIterator() as $row) {
+                    $rows->push($this->parser->transform($row));
+                }
+
+                $sheets->put($index, $rows);
             }
-
-            $sheets->put($index, $rows);
+            elseif ($sheetIndex === $index) {
+                foreach ($sheet->getRowIterator() as $row) {
+                    $sheets->push($this->parser->transform($row));
+                }
+                break;
+            }
         }
 
         return $sheets;
+    }
+
+    /**
+     * Create a new collection object.
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    protected function newCollection()
+    {
+        return new Collection;
     }
 }
